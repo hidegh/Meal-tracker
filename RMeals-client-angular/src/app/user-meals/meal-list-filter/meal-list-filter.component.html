@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="form-group col-md-6">
+      <label for="dateFrom">Date from:</label>
+      <input type="date" class="form-control" [(ngModel)]="filter.dateStringFrom" />
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="dateTo">Date to:</label>
+      <input type="date" class="form-control" [(ngModel)]="filter.dateStringTo" />
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6">
+      <label for="timeFrom">Time from:</label>
+      <input type="time" class="form-control" [(ngModel)]="filter.timeStringFrom" />
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="timeTo">Time to:</label>
+      <input type="time" class="form-control" [(ngModel)]="filter.timeStringTo" />
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col">
+      <button class="btn btn-secondary mr-1" (click)="setFilter()">Set filter</button>
+      <button class="btn btn-secondary mr-1" (click)="clearFilter()">Clear</button>
+    </div>
+
+  </div>
+
+</div>

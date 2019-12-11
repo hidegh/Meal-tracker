@@ -1,0 +1,14 @@
+<ul class="list-group">
+
+  <ng-container *ngFor='let dailySummary of meals' class="list-group-item meal-daily-summary">
+
+    <li class="list-group-item">
+
+      <ks-meal-daily-summary [dailySummary]="dailySummary"></ks-meal-daily-summary>
+      <ks-meal-daily-meals [dailyMeals]="dailySummary.meals" [dailyCaloriesExceeded]="dailySummary.dailyCaloriesExceeded" (mealSelected)="selectMeal($event)"></ks-meal-daily-meals>
+
+    </li>
+
+  </ng-container>
+
+</ul>

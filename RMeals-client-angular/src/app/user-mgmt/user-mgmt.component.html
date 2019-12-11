@@ -1,0 +1,52 @@
+<div class="container h-100 justify-content-center">
+
+    <div class="card">
+      <div class="card-header">User management</div>
+      <div class="card-body">
+
+        <pre>
+        - manager - show profile
+        - admin - profile and meals
+        - both can set permissions, but manager can't alter admin permission
+        </pre>
+
+        <ng-container *ngIf="(userList$ | async) as userList; else loadingTemplate">
+
+          <ul class="list-group">
+
+            <li *ngFor='let user of userList' class="list-group-item">
+
+              <div class="row align-items-center">
+
+                <div class="mr-1"><strong>{{user.name}}</strong></div>
+
+                <div class="mr-auto"></div>
+
+                <a routerLink="/user-profile/{{user.id}}" class="btn btn-light mr-1" title="User profile">
+                  <i class="fas fa-user"></i>
+                </a>
+
+                <a *ngIf="isAdmin" routerLink="/user-meals/{{user.id}}" class="btn btn-sm btn-light mr-1" title="User's meals">
+                  <i class="fas fa-utensils"></i>
+                </a>
+
+                <button class="btn btn-sm btn-light mr-1" title="User role management" (click)="openRoleManagementModal(user)">
+                  <i class="fas fa-user-shield"></i>
+                </button>
+
+              </div>
+
+            </li>
+
+          </ul>
+
+        </ng-container>
+
+        <ng-template #loadingTemplate>
+          <ks-spinner [loading]="loading"></ks-spinner>
+        </ng-template>
+
+      </div>
+    </div>
+
+  </div>

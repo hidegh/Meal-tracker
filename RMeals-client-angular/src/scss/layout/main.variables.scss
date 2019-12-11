@@ -1,0 +1,21 @@
+@import './../../../node_modules/bootstrap/scss/functions';
+@import './../../../node_modules/bootstrap/scss/variables';
+
+$primary-header-sticky-minimum-screen-height-breakpoint: 720px;
+$primary-header-sticky-z-index: 601; // above menu, but just when really sticky (consider media query)
+$primary-header-height: 4rem;
+$secondary-header-height: 3rem; // NOTE: 3rem was taken due the original BS .breadcrumb settings with default body font-size (of 1 rem)
+
+$breadcrumb-height: $secondary-header-height;
+
+$header-background-color: $dark;
+$header-color: $white;
+
+$main-background-color: $light;
+
+$footer-background-color: $dark;
+$footer-color: $white;
+
+$header-padding: .25rem;
+$main-content-padding: .50rem;
+$footer-padding: .25rem;

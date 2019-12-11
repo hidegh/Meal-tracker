@@ -1,0 +1,26 @@
+Req. functions (UX based summary):
+----------------------------------
+
+generic:
+	register
+	login
+
+user:
+	profile:
+		manage profile
+	meals:
+		list (with filter) ** green if daily calories not exceeded
+		select | delete
+		update
+		new
+		
+manager:
+	list all users
+	edit user profile
+	
+admin:
+	++ manager
+	list selected user meals (w. filter):
+		delete
+		insert
+		update

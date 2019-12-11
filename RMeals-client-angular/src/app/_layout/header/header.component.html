@@ -1,0 +1,128 @@
+<!--
+based on:
+https://getbootstrap.com/docs/4.3/components/navbar/
+https://mdbootstrap.com/docs/jquery/navigation/navbar/
+
+Summary:
+- we need the OUTER navbar
+- setting navbar-expand-[md|lg] will auto expand navbar-collapsed child classes
+- each inner div has to have navbar class and optionally additional classes based on content (see URL above)
+
+Note:
+- the 1st collapsing navbar template was taken from the URL above, wrapped into a navbar to keep them align
+- but the collapsing part has to be taken out, as it does not stack well when there is a content on the right
+-->
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+    <!--
+      navbar left align (right auto margin will push items to the left)
+      .mr-auto
+    -->
+
+    <!-- navbar - just a regular navbar (side menu toggler) -->
+    <button class="btn btn-dark" data-toggle="class" data-toggle-classes="open" data-target=".sidebar-left">
+      <i class="fas fa-bars fa-border"></i>
+    </button>
+
+    <!-- navbar-brand -->
+    <div class="navbar-brand">
+      <a  href="#" title="{{title}}" class="text-light">
+        <img src="/assets/logo.png" alt=" Logo" />
+        <!--
+          note: this is a special way to say visible md + above
+          see:  https://medium.com/wdstack/bootstrap-4-hidden-visible-dd969a4c5854
+        -->
+        <span class="d-none d-md-inline-block">{{title}}</span>
+      </a>
+    </div>
+
+    <!-- leave te next .mr-auto div there if you want the context above to left-align -->
+    <div class="mr-auto"></div>
+
+    <!--
+      centered part
+    -->
+
+    <!-- Collapsible menu - pt #1 - the content (shown in navbar if non-collapsed) -->
+    <div style="display: none !important" class=" d-none collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline">
+          <!-- using input group to avoid stacking one above another on small screens, as: https://getbootstrap.com/docs/4.0/components/forms/#inline-forms-->
+          <div class="input-group input-group-sm">
+              <input type="text" class="form-control" placeholder="Search phrase...">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+              </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- leave te next .ml-auto div there if you want the context below to right-align -->
+    <div class="ml-auto"></div>
+
+    <!-- Collapsible menu pt #1 - the open-button when collapsed (shown just when collapsed) -->
+    <button style="display: none !important" class="btn btn-outline-light navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!--
+      navbar right-align (left auto margin will push items to the right)
+      .ml-auto
+    -->
+    <div class="user-details">
+
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-user"></i>
+          <span class="d-none d-lg-inline-block">
+            {{auth.userData?.userName}}
+          </span>
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <div *ngIf="!auth.loggedIn">
+            <a class="dropdown-item" (click)="login()">Login</a>
+          </div>
+          <div *ngIf="auth.loggedIn">
+            <!--
+            <a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active" >Profile</a>
+            <div class="dropdown-divider"></div>
+            -->
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right-menu">
+
+      <button class="btn btn-outline-light d-none">
+        <i class="fas fa-question-circle"></i>
+      </button>
+
+      <button class="btn btn-outline-light" data-toggle="class" data-toggle-classes="open" data-target=".sidebar-right">
+        <i class="fas fa-cog"></i>
+      </button>
+
+    </div>
+
+  </nav>

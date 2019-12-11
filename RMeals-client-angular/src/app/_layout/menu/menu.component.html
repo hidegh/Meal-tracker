@@ -1,0 +1,40 @@
+<ul class="list-group">
+
+  <li class="list-group-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/welcome">
+      <i class="fas fa-home"></i>Home
+    </a>
+  </li>
+
+  <!--
+    User part
+  -->
+  <li class="list-group-item" *ngIf="isUser">
+    <a routerLink="/user-profile">
+      <i class="fas fa-user"></i>Profile
+    </a>
+  </li>
+  <li class="list-group-item" *ngIf="isUser">
+    <a routerLink="/user-meals">
+      <i class="fas fa-utensils"></i>Meals
+    </a>
+  </li>
+
+  <!--
+    Manager part
+  -->
+  <li class="list-group-item" *ngIf="canManage">
+    <a routerLink="/user-mgmt">
+      <i class="fas fa-users-cog"></i>Manage users
+    </a>
+  </li>
+
+  <!--
+  <li class="list-group-item" *ngIf="canManage">
+    <a routerLink="/">
+      <i class="fas fa-shield-alt"></i>Manage user access
+    </a>
+  </li>
+  -->
+
+</ul>

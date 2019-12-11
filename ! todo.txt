@@ -1,0 +1,4 @@
+1) docs:
+- user documentation
+- developer docs: architectural / used tools / gotchas
+

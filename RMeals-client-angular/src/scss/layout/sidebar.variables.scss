@@ -1,0 +1,18 @@
+$sidebar-z-index: 600;
+
+$sidebar-transition-time: .3s;
+$sizebar-minimized-width-minimum-screen-width-breakpoint: 720px;
+
+$sidebar-left-bg-color: whitesmoke;
+$sidebar-left-border: 1px solid darkgray;
+$sidebar-left-width: 15rem;
+$sidebar-left-minimized-width: 3.25rem;
+$sidebar-left-header-height: $secondary-header-height;
+
+$sidebar-right-bg-color: whitesmoke;
+$sidebar-right-border: 1px solid darkgray;
+$sidebar-right-width: 15rem;
+$sidebar-right-minimized-width: 3.25rem;
+$sidebar-right-header-height: $secondary-header-height;
+
+/* NOTE due to the border, the <li> items might need a margin too... */

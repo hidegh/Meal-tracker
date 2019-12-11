@@ -1,0 +1,225 @@
+@import './main.variables.scss';
+@import './sidebar.variables.scss';
+
+/*
+  SIDE-BAR
+
+    default sidebar behaviour:
+      if open, it'll consume space, shrinking the main view-port!
+
+    CSS:
+    .sidebar-overlap        allows the menu to be pulled over the viewport
+    .sidebar-minimize       should allow a minimized version (on bigger screens) instead of closing
+    .sidebar-open-on-hover  will auto-open minimized sidebar if mouse enters it
+
+  sidebar offers 2 main work mode, whereas the non-overlapping has some special states when closed
+
+    taking up space from viewport | overlapping over viewport
+    ------------------------------| -------------------------
+    opened                        | opened
+    closed                        | closd
+    closed with minimized content |
+    closed + min + hovering over  |
+
+  there can be 2 layout set for sidebar (2 standards):
+
+    sidebar | header     | sidebar
+            | -----------|
+            | breadcrumb |
+            | -----------|
+            | content    |
+            | -----------|
+            | footer     |
+
+    or
+
+    header
+    ---------------------------------
+    sidebar | breadcrumb    | sidebar
+            | ------------- |
+            | conent        |
+            | ------------- |
+            | conent-footer |
+    ---------------------------------
+    footer
+
+
+  How (this) works:
+
+    Scenario when side-menus are taking up viewport space:
+      - in this case the sidebar-[min]width has to be altered!
+      - the border effects are tied to .sidebar-[left|right]
+      - closed = width 0, open = full width, closed & .sidebar-minimize = special width
+
+    The .sidebar-overlap scenario
+      - the .sidebar-[left|right] has a width of 0, overflow: visible
+      - the .sidebar-content-wrapper:
+        - has overflow: hidden;
+        - container is fully inside it (but due overflow part won't be visible neither will take up horiz. space)
+        - we alter the wrappers width to show more from the .sidebar-container content (while altering content width would lead to bad UX do text-wrapping)
+        - the .sidebar-content-wrapper has the menu styling
+
+
+  Check these out:
+  - https://ionicacademy.com/ionic-side-menu-with-sub-items/ (pure angular/ionic way)
+  - https://github.com/mdbootstrap/perfect-scrollbar#readme
+  - https://adminlte.io/themes/AdminLTE/index2.html
+
+*/
+.sidebar {
+  position: relative;
+  z-index: $sidebar-z-index;
+  position: relative;
+  min-height: 100vh;
+
+  transition: $sidebar-transition-time;
+  width: 0;
+  min-width: 0;
+}
+
+.sidebar-content-wrapper {
+  position: relative;
+  z-index: $sidebar-z-index;
+  position: relative;
+  overflow: hidden;
+}
+
+header ~ .layout-content-wrapper .sidebar {
+  /* header ~ .layout-content-wrapper .sidebar-left|right is layout 2, while plain .sidebar is layout 1 */
+  min-height: calc(100vh - #{$primary-header-height});
+}
+
+.sidebar-content {
+  white-space: nowrap;
+  height: 100%;
+}
+
+@mixin sidebar-left-style() {
+  background-color: $sidebar-left-bg-color;
+  border: $sidebar-left-border;
+}
+
+@mixin sidebar-right-style() {
+  background-color: $sidebar-right-bg-color;
+  border: $sidebar-right-border;
+}
+
+.sidebar-left .sidebar-content {
+  width: $sidebar-left-width;
+  min-width: $sidebar-left-width;
+  @include sidebar-left-style();
+}
+
+.sidebar-right .sidebar-content {
+  width: $sidebar-right-width;
+  min-width: $sidebar-right-width;
+  @include sidebar-right-style();
+}
+
+/*
+open / minimize / close - with :not(.sidebar-overlap)
+*/
+.sidebar-left:not(.sidebar-overlap) {
+  @extend .sidebar;
+  @include sidebar-left-style();
+
+  &.open {
+    transition: $sidebar-transition-time;
+    width: $sidebar-left-width;
+    min-width: $sidebar-left-width;
+  }
+}
+
+.sidebar-right:not(.sidebar-overlap) {
+  @extend .sidebar;
+  @include sidebar-right-style();
+
+  &.open{
+    transition: $sidebar-transition-time;
+    width: $sidebar-right-width;
+    min-width: $sidebar-right-width;
+  }
+}
+
+
+@media screen and ( min-width: $sizebar-minimized-width-minimum-screen-width-breakpoint ) {
+
+  .sidebar-left:not(.sidebar-overlap) {
+
+    &.sidebar-minimize:not(.open) {
+      transition: $sidebar-transition-time;
+      width: $sidebar-left-minimized-width;
+      min-width: $sidebar-left-minimized-width;
+
+      &.sidebar-open-on-hover:hover{
+        transition: $sidebar-transition-time;
+        width: $sidebar-left-width;
+        min-width: $sidebar-left-width;
+      }
+
+    }
+
+  }
+
+  .sidebar-right:not(.sidebar-overlap) {
+
+    &.sidebar-minimize:not(.open) {
+      transition: $sidebar-transition-time;
+      width: $sidebar-right-minimized-width;
+      min-width: $sidebar-right-minimized-width;
+
+      &.sidebar-open-on-hover:hover{
+        transition: $sidebar-transition-time;
+        width: $sidebar-right-width;
+        min-width: $sidebar-right-width;
+      }
+
+    }
+
+  }
+
+}
+
+
+/*
+open / close - with .sidebar-overlap
+*/
+.sidebar-overlap .sidebar-content-wrapper {
+  position: absolute;
+  overflow: hidden;
+
+  transition: $sidebar-transition-time;
+  width: 0;
+  min-width: 0;
+}
+
+.sidebar-left.sidebar-overlap {
+
+  & .sidebar-content-wrapper {
+    left: 0;
+    @include sidebar-left-style();
+  }
+
+  &.open .sidebar-content-wrapper {
+    transition: $sidebar-transition-time;
+    width: $sidebar-left-width;
+    min-width: $sidebar-left-width;
+  }
+
+}
+
+.sidebar-right.sidebar-overlap {
+
+  & .sidebar-content-wrapper {
+    right: 0;
+    @include sidebar-right-style();
+  }
+
+  &.open .sidebar-content-wrapper {
+    transition: $sidebar-transition-time;
+    width: $sidebar-right-width;
+    min-width: $sidebar-right-width;
+  }
+
+}
+

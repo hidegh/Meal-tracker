@@ -1,0 +1,50 @@
+/*
+FONT AWESOME ICONS
+*/
+@import './../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+
+/*
+Add BOOTSTRAP & kendo basic theming
+- https://getbootstrap.com/docs/4.0/getting-started/theming/ (https://themestr.app/theme)
+- https://www.telerik.com/kendo-angular-ui/components/styling/theme-builder/
+
+NOTE:
+- apply variable overrides before importing boostrap SCSS
+- apply variable overrides before importing kendo SCSS
+*/
+
+@import './variables.scss';
+@import './../../node_modules/bootstrap/scss/bootstrap.scss';
+
+
+/*
+Bootstrap extras
+*/
+
+/** bootstrap generic overrides */
+@import './bs.grid.scss';
+@import './bs.forms.scss';
+@import './bs.btn.scss';
+
+/** bootstrap generic extras  - like branding */
+@import './bs.accordion.icons.scss';
+
+/** bootstrap special - like customized menu, etc.*/
+
+/*
+Other extras
+*/
+@import './../../node_modules/angular2-toaster/toaster'; // NOTE: for proper load (colors) i had to omit CSS extension from @import!
+
+html, body {
+  height: 100%;
+}
+
+.fa-spin-slow {
+  animation-duration: 3s;
+}
+
+.fa-spin-quick {
+  animation-duration: 1s;
+}

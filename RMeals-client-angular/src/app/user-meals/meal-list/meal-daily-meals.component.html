@@ -1,0 +1,18 @@
+<table *ngIf="dailyMeals && dailyMeals.length" class="table table-sm table-hover">
+  <thead>
+    <tr class="d-flex">
+      <th class="col-3">Time</th>
+      <th class="col-2">Calories</th>
+      <th class="col-6">Description</th>
+      <th class="col-1"></th>
+    </tr>
+  </thead>
+  <tbody [class.text-success]="!dailyCaloriesExceeded" [class.text-danger]="dailyCaloriesExceeded">
+    <tr *ngFor='let meal of dailyMeals'class="d-flex">
+      <td class="col-3">{{meal.date | date:'mediumTime' }}</td>
+      <td class="col-2">{{meal.calories | number: '1.2'}}</td>
+      <td class="col-6">{{meal.description}}</td>
+      <td class="col-1 text-right"><button class="btn btn-secondary btn-sm" (click)="selectMeal(meal)"><i class="fas fa-edit"></i></button></td>
+    </tr>
+  </tbody>
+</table>

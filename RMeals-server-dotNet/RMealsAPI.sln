@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMealsAPI", "src\RMealsAPI\RMealsAPI.csproj", "{826E9D6D-D7DE-4B03-B840-68874AD4A64D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMealsAPI.Services", "src\RMealsAPI.Services\RMealsAPI.Services.csproj", "{31B8BDC5-BF17-49EE-8903-4E84664BC37D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMealsAPI.Model", "src\RMealsAPI.Model\RMealsAPI.Model.csproj", "{86921532-16E1-4710-BAF5-010688AA870A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMealsAPI.Persistence", "src\RMealsAPI.Persistence\RMealsAPI.Persistence.csproj", "{6C0EFDBB-59D1-485C-BFBB-4352291FD410}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{37CDB33F-A66A-427C-BDE8-195349F68B7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "databases", "databases", "{82093C06-979D-495A-A34F-2C4225F40EAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMealsAPI.IntegrationTest", "tests\RMealsAPI.IntegrationTest\RMealsAPI.IntegrationTest.csproj", "{7309F3C7-796B-4B4A-B2AB-D946C1753DBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2AE14DF9-60F5-4A3A-90F8-0341FC1D8E2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{826E9D6D-D7DE-4B03-B840-68874AD4A64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826E9D6D-D7DE-4B03-B840-68874AD4A64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826E9D6D-D7DE-4B03-B840-68874AD4A64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826E9D6D-D7DE-4B03-B840-68874AD4A64D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31B8BDC5-BF17-49EE-8903-4E84664BC37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31B8BDC5-BF17-49EE-8903-4E84664BC37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31B8BDC5-BF17-49EE-8903-4E84664BC37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31B8BDC5-BF17-49EE-8903-4E84664BC37D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86921532-16E1-4710-BAF5-010688AA870A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86921532-16E1-4710-BAF5-010688AA870A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86921532-16E1-4710-BAF5-010688AA870A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86921532-16E1-4710-BAF5-010688AA870A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C0EFDBB-59D1-485C-BFBB-4352291FD410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C0EFDBB-59D1-485C-BFBB-4352291FD410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C0EFDBB-59D1-485C-BFBB-4352291FD410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C0EFDBB-59D1-485C-BFBB-4352291FD410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7309F3C7-796B-4B4A-B2AB-D946C1753DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7309F3C7-796B-4B4A-B2AB-D946C1753DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7309F3C7-796B-4B4A-B2AB-D946C1753DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7309F3C7-796B-4B4A-B2AB-D946C1753DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{826E9D6D-D7DE-4B03-B840-68874AD4A64D} = {2AE14DF9-60F5-4A3A-90F8-0341FC1D8E2A}
+		{31B8BDC5-BF17-49EE-8903-4E84664BC37D} = {2AE14DF9-60F5-4A3A-90F8-0341FC1D8E2A}
+		{86921532-16E1-4710-BAF5-010688AA870A} = {2AE14DF9-60F5-4A3A-90F8-0341FC1D8E2A}
+		{6C0EFDBB-59D1-485C-BFBB-4352291FD410} = {2AE14DF9-60F5-4A3A-90F8-0341FC1D8E2A}
+		{7309F3C7-796B-4B4A-B2AB-D946C1753DBD} = {37CDB33F-A66A-427C-BDE8-195349F68B7A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9CD6DD0-B97E-44F2-B236-4A372539AFD3}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,43 @@
+@import './main.variables.scss';
+@import './header.variables.scss';
+
+header {
+  // NOTE: the fix for the header issue within android chrome
+  position: relative;
+  z-index: $header-z-index;
+
+  padding: 0;
+}
+
+header nav.navbar {
+  // NOTE: do not define heigt and/or max-height if collapsible navbar is present...
+  min-height: $primary-header-height;
+
+  padding: 0.35rem 0.70rem;
+
+  & .navbar-brand {
+
+    vertical-align: middle;
+    padding: 0;
+
+    & img {
+      height: 3rem;
+      border-radius: .125rem;
+    }
+
+    & span {
+      padding: 0 .75rem;
+    }
+
+  }
+
+  & > :not(.navbar):not(:first-child) {
+    // every item, except another nav-bar (allow for merging) will have a default left margin to keep some distance from prev.
+    margin-left: 0.25rem
+  }
+
+  .btn {
+    margin-left: 0.25rem;
+  }
+}
+

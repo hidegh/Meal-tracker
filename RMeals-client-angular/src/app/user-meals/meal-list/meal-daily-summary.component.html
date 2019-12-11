@@ -1,0 +1,28 @@
+<div class="row text-light p-1 align-items-center rounded"
+  *ngIf="dailySummary"
+  [class.bg-success]="!dailySummary.dailyCaloriesExceeded"
+  [class.bg-danger]="dailySummary.dailyCaloriesExceeded">
+
+  <div class="col-auto mr-2" style="font-size: 1.5rem;">
+    {{dailySummary.day | date }}
+  </div>
+
+  <div class="col-auto">
+    <table>
+      <tr>
+        <td>Meals:</td>
+        <td>{{dailySummary.mealsCount }}</td>
+      </tr>
+      <tr>
+        <td>Total calories:</td>
+        <td>{{dailySummary.dailyCaloriesConsumed | number: '1.2' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col text-right" style="font-size: 2rem;">
+    <ng-container *ngIf="!dailySummary.dailyCaloriesExceeded"><i class="fas fa-smile"></i></ng-container>
+    <ng-container *ngIf="dailySummary.dailyCaloriesExceeded"><i class="fas fa-sad-tear"></i></ng-container>
+  </div>
+
+</div>

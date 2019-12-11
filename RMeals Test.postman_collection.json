@@ -1,0 +1,1073 @@
+{
+	"info": {
+		"_postman_id": "29d10f33-7bdd-4668-b7ff-d33035146b22",
+		"name": "R-Meals Test (Public)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": ".NET App API",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Login with admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "admin",
+											"description": "admin123$",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/login",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "manager",
+											"description": "admin123$",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "manager123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/login",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with paul",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "paul",
+											"description": "admin123$",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "paul123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/login",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with saul",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "saul",
+											"description": "admin123$",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "saul123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/login",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get secured weather data",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{netAppApi_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/weatherforecast",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"weatherforecast"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register new user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "balazs",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "balazs123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/register",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login new user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "balazs",
+											"description": "balazs123",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "balazs123$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/authentication/login",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get all user profiles with user.id (admin, manager)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user profile (saul)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/profile",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user profile (saul)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"allowedCalories\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/profile",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user roles (manager)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/2/roles",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"2",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user roles (manager)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n\t\"manager\", \"admin\"\n]\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/2/roles",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"2",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Meals",
+					"item": [
+						{
+							"name": "Get saul's all meals (or filtered)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals?dateFrom=2019-11-01&dateTo&timeFrom&timeTo=11:00:00",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"meals"
+									],
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": "2019-11-01"
+										},
+										{
+											"key": "dateTo",
+											"value": ""
+										},
+										{
+											"key": "timeFrom",
+											"value": ""
+										},
+										{
+											"key": "timeTo",
+											"value": "11:00:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create meal for saul #mealID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8301733b-6c7d-4dd5-8d84-0f49ab39776b",
+										"exec": [
+											"if (pm.response.code === 201) {",
+											"    var id = parseInt(pm.response.text());",
+											"",
+											"    var locationParts = pm.response.headers.get(\"Location\").split(\"/\");",
+											"    var idLocString = locationParts[locationParts.length - 1];",
+											"    var idLoc = parseInt(idLocString);",
+											"    postman.setEnvironmentVariable(\"netAppApi_mealId\", idLoc);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"date\": \"2019-11-12T14:30:00.000\",\n\t\"calories\": 322,\n\t\"description\": \"desc. 322\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"meals"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get saul's meal #mealID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals/{{netAppApi_mealId}}",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"meals",
+										"{{netAppApi_mealId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update saul's #mealID",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals/{{netAppApi_mealId}}",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"meals",
+										"{{netAppApi_mealId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete saul's meal #mealID",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{netAppApi_token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals/{{netAppApi_mealId}}",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"Users",
+										"4",
+										"meals",
+										"{{netAppApi_mealId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Temp",
+					"item": [
+						{
+							"name": "OData date-part search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "text/plain",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik0wWkJSRFU1T1RRNU5UazBSa0ZFTkRVek4wVkJOME5EUWtFME4wRkRNVEJFTmpFNE4wWTJSQSJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYmFsYXpzLmhpZGVnaGV0eUB1bml2ZXJzYWxwbGFudC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJiYWxhenMuaGlkZWdoZXR5QHVuaXZlcnNhbHBsYW50LmNvbSIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2FscGxhbnQuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjNWRiNzRiMTEyMzkxMmVjYjc4ZDlkNyIsImF1ZCI6WyJzZWN1cml0eS5hcGkudW5pdmVyc2FscGxhbnQuY29tIiwiaHR0cHM6Ly91bml2ZXJzYWxwbGFudC5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTczNDk1NTg3LCJleHAiOjE1NzM1ODE5ODcsImF6cCI6IlBRQVcyaENaaGVEZW1BSFhRc2xCbHQxcHc4TXZRN1hqIiwic2NvcGUiOiJvcGVuaWQifQ.qxjtJ0lDmXtXNSYujvdhtDlVs07GM_cmjRoE8SW2XCd68zxoWG-xX0BJcmY1JRErs07kWr0PRmuyK0JpKUaXvpNZ5RuS-M7p3vWiZx_UFQEqdJiE9rHllmSyCUm_gNEl4Bgbu9N7-5pIsjyYIehw9caQNcKHajIpyB_kiB6m_nqkQgTtN_T_Jxim--mWGMm_3zR5roc-eIInqtqZC75Nkz81vG5VE9TdA-fZhjIJUW5BzIT-047B2wRMg5uInXAcz-OVjDKOcBS1NwziqwnHqvJmyFgVrnCyiFY_qvvkm_uQHoZp8XGLlXpPr2EhSNVtnpp67793RHqLrjt26pg8mQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "Samples:\nhttps://qa-sparta-api.azurewebsites.net/api/manpowers/supervisordashboard-odata/76be5ccc-4511-4f88-9fbf-b87ae5f32281?$format=json&$count=true&$filter=date(StartDate) gt 2019-11-11\nhttps://qa-sparta-api.azurewebsites.net/api/manpowers/supervisordashboard-odata/76be5ccc-4511-4f88-9fbf-b87ae5f32281?$format=json&$count=true&$filter=time(cast(StartDate, 'Edm.DateTimeOffset')) gt 14:00:00.00000\nhttps://qa-sparta-api.azurewebsites.net/api/manpowers/supervisordashboard-odata/76be5ccc-4511-4f88-9fbf-b87ae5f32281?$format=json&$count=true&$select=StartDate\n\nInvalid:\nhttps://qa-sparta-api.azurewebsites.net/api/manpowers/supervisordashboard-odata/76be5ccc-4511-4f88-9fbf-b87ae5f32281?$format=json&$count=true&$select=date(StartDate)",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa-sparta-api.azurewebsites.net/api/manpowers/supervisordashboard-odata/76be5ccc-4511-4f88-9fbf-b87ae5f32281?$format=json&$count=true&$filter=time(cast(StartDate, 'Edm.DateTimeOffset')) lt 11:00:00.00000",
+									"protocol": "https",
+									"host": [
+										"qa-sparta-api",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"manpowers",
+										"supervisordashboard-odata",
+										"76be5ccc-4511-4f88-9fbf-b87ae5f32281"
+									],
+									"query": [
+										{
+											"key": "$format",
+											"value": "json"
+										},
+										{
+											"key": "$count",
+											"value": "true"
+										},
+										{
+											"key": "$filter",
+											"value": "time(cast(StartDate, 'Edm.DateTimeOffset')) lt 11:00:00.00000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get EF IQueryable",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/sample/ef",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"sample",
+										"ef"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get OBJECTS iqueryable",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
+										"exec": [
+											"function jwt_decode(jwt) {",
+											"    var parts = jwt.split('.'); // header, payload, signature",
+											"    return JSON.parse(atob(parts[1]));",
+											"}",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"",
+											"var decodedToken = jwt_decode(data.token);",
+											"",
+											"console.log(decodedToken);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://{{netAppApi_domain}}/sample/objects",
+									"protocol": "https",
+									"host": [
+										"{{netAppApi_domain}}"
+									],
+									"path": [
+										"sample",
+										"objects"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

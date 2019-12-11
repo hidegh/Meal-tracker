@@ -1,0 +1,59 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Role management for: {{user.name}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span><i class="fas fa-times"></i></span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <ng-container *ngIf="(userRolesList$ | async) as userRoles; else loadingTemplate">
+
+    <form #f="ngForm">
+
+        <ul class="list-group">
+
+          <li class="list-group-item">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="roleManager" name="roleManager"
+                [ngModel]="containsRole(userRoles, roleConsts.Manager)"
+                />
+              <label class="custom-control-label" for="roleManager">Manager</label>
+            </div>
+          </li>
+
+          <li class="list-group-item">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="roleAdmin" name="roleAdmin"
+                [ngModel]="containsRole(userRoles, roleConsts.Admin)"
+                />
+              <label class="custom-control-label" for="roleAdmin">Admin</label>
+            </div>
+          </li>
+
+        </ul>
+
+      </form>
+
+  </ng-container>
+
+  <ng-template #loadingTemplate>
+    <ks-spinner [loading]="loading"></ks-spinner>
+  </ng-template>
+
+</div>
+
+<div class="modal-footer">
+
+  <button *ngIf="!isNewItem" class="btn btn-primary mr-1" [disabled]="loading" (click)="update()">
+    <i *ngIf="updating" class="fas fa-circle-notch fa-spin fa-spin-quick mr-1"></i>
+    <i class="fas fa-arrow-alt-circle-up fa-fw"></i>Update
+  </button>
+
+  <button class="btn btn-secondary mr-1" (click)="modal.dismiss()">
+    <i class="fas fa-times fa-fw"></i>Cancel
+  </button>
+
+</div>
+
+

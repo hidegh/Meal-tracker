@@ -1,0 +1,4 @@
+@import './main.variables.scss';
+@import './sidebar.variables.scss';
+
+$header-z-index: calc(#{$sidebar-z-index} + 1);

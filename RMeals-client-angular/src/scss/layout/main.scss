@@ -1,0 +1,91 @@
+
+/*
+best sample to start with is: https://adminlte.io/themes/AdminLTE/index2.html as it has both shifting/overlaying aside menus
+and https://coreui.io/demo/#main.html - which is more "fluent" (like header always on top, side-menus scrollable, etc...)
+and https://bootstrapious.com/p/bootstrap-sidebar &  https://codepen.io/JFarrow/pen/fFrpg for minimized "hover" menu...
+*/
+
+@import './main.variables.scss';
+
+/* for "blocking" */
+.overlay {
+  position: fixed;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 2000;
+}
+
+/* flex grid to have a global-footer on the bottom: https://flexbox.webflow.com/#how */
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-wrapper .layout-content-wrapper {
+  flex-grow: 1;
+}
+
+/* content-wrapper for 3 col layout due sidebars */
+.layout-content-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* body, content-footer at bottom */
+body {
+  background-color: $main-background-color;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $main-background-color;
+}
+
+main .breadcrumb {
+  height: $breadcrumb-height;
+}
+
+main .content {
+  flex-grow: 1;
+  padding: $main-content-padding;
+}
+
+/* fixed header */
+header {
+  height: $primary-header-height;
+  padding: $header-padding;
+
+  width: 100%;
+  z-index: 500;
+
+  background-color:  $header-background-color;
+  color: $header-color;
+}
+
+@media screen and ( min-height: $primary-header-sticky-minimum-screen-height-breakpoint ) {
+  header.adv-sticky {
+    // Only if min-height is given, so no sticky on mobiles!
+    top: 0;
+    position: -webkit-sticky;
+    position: sticky;
+
+    z-index: $primary-header-sticky-z-index;
+  }
+}
+
+/* footer */
+footer {
+  padding: $footer-padding;
+
+  background-color:  $footer-background-color;
+  color: $footer-color;
+}

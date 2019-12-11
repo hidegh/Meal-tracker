@@ -1,0 +1,36 @@
+@import 'bs.forms.variables.scss';
+
+/*
+  Valid, required
+*/
+:required:not(:focus) {
+  border-bottom: $required-bottom-border-size solid $required-bottom-border-color;
+}
+
+.ng-invalid:not(form)  {
+  border-left: $error-border-left-size solid $error-border-left-color;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  // NOTE: just an another way to signalize valid and req. fields (like green border on the left)
+}
+
+
+/*
+  Form-group - condensed
+*/
+.form-group-condensed {
+  margin-bottom: .5rem;
+}
+
+/*
+.condensed-form-group-container to apply for immediate .form-group items
+*/
+.condensed-form-group-container .form-group {
+  margin-bottom: .5rem;
+}
+
+.condensed-form-group-container .form-group .form-group{
+  // need to reset, so nested .form-group are not affected
+  margin-bottom: inherit;
+}

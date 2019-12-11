@@ -1,0 +1,101 @@
+<!--
+  best sample to start with is: https://adminlte.io/themes/AdminLTE/index2.html as it has both shifting/overlaying aside menus
+  and https://coreui.io/demo/#main.html - which is more "fluent" (like header always on top, side-menus scrollable, etc...)
+  and https://bootstrapious.com/p/bootstrap-sidebar & https://codepen.io/JFarrow/pen/fFrpg for minimized "hover" menu...
+-->
+<div class="overlay d-none"></div>
+
+<div class="layout-wrapper">
+
+  <header class="adv-sticky">
+    <ks-header></ks-header>
+  </header>
+
+  <div class="layout-content-wrapper">
+
+    <aside class="sidebar sidebar-left sidebar-minimize sidebar-open-on-hover open">
+
+      <div class="sidebar-content-wrapper">
+
+        <div class="sidebar-content">
+
+          <ks-menu></ks-menu>
+
+          <!-- sidebar HTML sample
+          <ul class="list-unstyled components">
+              <li class="active">
+                  <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu">
+                      <li>
+                          <a href="#">Home 1</a>
+                      </li>
+                      <li>
+                          <a href="#">Home 2</a>
+                      </li>
+                      <li>
+                          <a href="#">Home 3</a>
+                      </li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">About</a>
+              </li>
+              <li>
+                  <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu">
+                      <li>
+                          <a href="#">Page 1</a>
+                      </li>
+                      <li>
+                          <a href="#">Page 2</a>
+                      </li>
+                      <li>
+                          <a href="#">Page 3</a>
+                      </li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">Portfolio</a>
+              </li>
+              <li>
+                  <a href="#">Contact</a>
+              </li>
+          </ul>
+          -->
+
+        </div>
+
+      </div>
+    </aside>
+
+    <main>
+
+      <nav class="breadcrumb d-none">Breadcrumbs</nav>
+
+      <article class="content">
+        <!-- NOTE: for some reason sometimes the router-outlet does not get's displayed after changes in HTML/SCSS and angular rebuild... -->
+        <router-outlet></router-outlet>
+      </article>
+
+      <footer class="footer-content">
+          &copy; 2019
+      </footer>
+
+    </main>
+
+    <aside class="sidebar sidebar-right sidebar-overlap">
+      <div class="sidebar-content-wrapper">
+        <div class="sidebar-content">
+          Right sidebar
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer class="footer-global d-none">
+    Global footer
+  </footer>
+
+</div>
+

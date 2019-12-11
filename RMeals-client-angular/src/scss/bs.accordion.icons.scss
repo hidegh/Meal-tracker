@@ -1,0 +1,31 @@
+
+/*
+BS accordion basic setup & chevron down/up icons via class
+*/
+.accordion-toggle:after {
+  float: right;
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: bold; // Required to work (at least weight of 501)
+}
+
+.accordion-content {
+  height: 0;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.accordion-content.show {
+  height: inherit;
+}
+
+
+/*
+Chevron up/down setting
+*/
+.accordion-toggle.chevron-up-down:not(.collapsed):after {
+  content: "\f077";
+}
+
+.accordion-toggle.chevron-up-down.collapsed:after {
+  content: "\f078";
+}

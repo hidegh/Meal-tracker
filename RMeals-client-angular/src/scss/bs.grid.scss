@@ -1,0 +1,73 @@
+/*
+  BS grid extension
+  (.a or .b) and .c == .a and .c or .b and .c == .a.c, .b.c
+*/
+
+/*
+  .col-content - class that adds padding for a col. content
+*/
+.col-content {
+  padding: 1.25rem;
+}
+
+/*
+  col vertical padding
+*/
+@mixin vertical-col-padding {
+  padding-top: calc(#{$grid-gutter-width} / 2);
+  padding-bottom: calc(#{$grid-gutter-width} / 2);
+}
+
+/*
+  separate class for a .col
+*/
+.col-py {
+  @include vertical-col-padding();
+}
+
+/*
+  apply it on row
+*/
+.vertical-col-padding.row .col:not(.col-form-label) {
+  @include vertical-col-padding();
+}
+
+/*
+  apply it on row container, ...
+  ...but do not apply on nested containers (resetting)
+*/
+.vertical-col-padding .row .col:not(.col-form-label) {
+  @include vertical-col-padding();
+}
+
+.vertical-col-padding .row .row .col:not(.col-form-label) {
+  // undo for nested levels without the special class
+  padding-top: inherit;
+  padding-bottom: inherit;
+}
+
+@for $i from 1 through 12 {
+  .vertical-col-padding .row .col-#{$i}:not(.col-form-label) {
+    @include vertical-col-padding();
+  }
+
+  .vertical-col-padding .row .row .col-#{$i}:not(.col-form-label) {
+    // undo for nested levels without the special class
+    padding-top: inherit;
+    padding-bottom: inherit;
+  }
+}
+
+@each $breakpoint in ("xs", "sm", "md", "lg", "xl") {
+  @for $i from 1 through 12 {
+    .vertical-col-padding .row .col-#{$breakpoint}-#{$i}:not(.col-form-label) {
+      @include vertical-col-padding();
+    }
+
+    .vertical-col-padding .row .row .col-#{$breakpoint}-#{$i}:not(.col-form-label) {
+      // undo for nested levels without the special class
+      padding-top: inherit;
+      padding-bottom: inherit;
+    }
+  }
+}

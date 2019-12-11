@@ -1,0 +1,39 @@
+<div class="container h-100 d-flex justify-content-center">
+
+  <div class="jumbotron my-auto col-12 col-md-8">
+
+    <h2>Login</h2>
+
+    <ks-message-component></ks-message-component>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" class="form-control" />
+        <div *ngIf="f.username.touched && f.username.errors" class="text-danger">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control" />
+        <div *ngIf="f.password.touched && f.password.errors" class="text-danger">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+        <a routerLink="/register" class="btn btn-link">Register</a>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,122 @@
+/*
+Some side-menus with collapsible and auto-popping features as motivation:
+  https://adminlte.io/themes/AdminLTE/index2.html
+  https://github.com/ProfFan/AdminLTE-SCSS
+  https://coreui.io/index.html#live-preview
+  https://matrixadmin.wrappixel.com/
+*/
+
+
+/*
+Generic settings, for all ul/li levels...
+*/
+
+ks-menu {
+
+  & dl,
+  & ol,
+  & ul {
+    list-style: none;
+    padding: 0.75rem 0;
+
+    /*
+    // NOTE:
+    // this below is a fix, without we would not be able to remove underline from not selected <li> tags!
+    // https://stackblitz.com/edit/remove-underline-from-nested-li-item?file=index.html
+    // but won't work with white-space: nowrap which we need on the side menus
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    */
+  }
+
+  & > ks-menu-level > ul > li {
+    /*
+    first level li's should have no padding (higher selection priority than the selector below)
+    */
+    padding-left: 0;
+
+    & > .ks-menu-item {
+      // for sub-menu's - based on .k-panelbar > .k-item > .k-link
+      border-color: #dde2e7;
+      color: #212529;
+      background-color: #f8f9fa;
+
+      // and .k-panelbar
+      border-width: 1px;
+      border-style: solid;
+    }
+  }
+
+  & li {
+    /*
+    All nodes, including 1st level nodes as well
+    */
+
+    // padding left will stack with levels
+    padding-left: 1.25rem;
+
+    display: block;
+
+    &.active {
+      font-weight: bold;
+      /* text-decoration: underline; */
+    }
+
+    &:not(.active) {
+      font-weight: normal;
+      text-decoration: none !important;;
+    }
+
+    &.hasChildren > .ks-menu-item:first-child
+    {
+      // for sub-menu's - based on .k-panelbar > .k-item > .k-link
+      border-color: #dde2e7;
+      color: #212529;
+      background-color: #f8f9fa;
+    }
+
+    & .ks-menu-item {
+
+      padding: 0.75rem 0;
+      padding-left: 1.25rem;
+
+      // need position relative to have overlay-ed anchor tag
+      position: relative;
+
+      &:hover {
+        // from: .k-panelbar>.k-item>.k-link:hover,.k-panelbar>.k-item>.k-link.k-state-hover
+        border-color:#dde2e7;
+        color:#212529;
+        background-color:#eff1f4 !important;
+      }
+
+      & a.routing {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+
+      & i:after {
+        content: " ";
+        white-space: pre;
+        padding-right: .75em;
+      }
+
+    }
+
+  }
+
+}
+
+/* L1 menu item config */
+ks-menu > ks-menu-level > ul > li {
+
+}
+
+/* L2+ menu item configs */
+ks-menu ul > li {
+
+}

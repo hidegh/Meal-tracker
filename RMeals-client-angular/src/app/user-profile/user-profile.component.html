@@ -1,0 +1,47 @@
+<ks-spinner [loading]="loading"></ks-spinner>
+
+<div *ngIf="!loading" class="container h-100 d-flex justify-content-center">
+
+  <div class="jumbotron my-auto col-12 col-md-8">
+
+    <h2>
+      <ng-container *ngIf="(userDetails$ | async) as userDetails; else genericHeadingTemplate">
+          Profile of: {{userDetails.name}}
+        </ng-container>
+
+        <ng-template #genericHeadingTemplate>
+          User's profile
+        </ng-template>
+    </h2>
+
+    <ks-message-component></ks-message-component>
+
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+      <div class="form-group">
+        <label for="allowedCalories">Allowed daily calories</label>
+        <input type="number" name="allowedCalories" class="form-control" required min="0" max="10000" [(ngModel)]="profile.allowedCalories" #allowedCalories="ngModel" />
+        <!--
+          multiple way to access control
+          also a special directive is used to fix min/max issue with template-driven html5 min/max validator
+          and also note buggy invalid-feedback BS4 style
+        -->
+        <div *ngIf="f.controls.allowedCalories?.touched && f.controls.allowedCalories?.errors" class="invalid-feedback d-block">
+          <div *ngIf="allowedCalories?.errors?.min">Minimum value of 0 is required.</div>
+          <div *ngIf="allowedCalories?.errors?.max">Maximum allowed value is 10000.</div>
+          <div *ngIf="f.form.get('allowedCalories')?.errors?.required">Value is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="updating || f.invalid" class="btn btn-primary">
+          <span *ngIf="updating" class="spinner-border spinner-border-sm mr-1"></span>
+          Update profile
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
