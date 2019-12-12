@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -121,6 +122,19 @@ namespace RMealsAPI
             services.TryAddSingleton(_ => new ODataConventionModelBuilder(_, true).EnableLowerCamelCase());
             services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
             services.AddOData();
+
+            // Originally a workaround: https://github.com/OData/WebApi/issues/1177...
+            //
+            // ...but from .NET Core 3.x it's a solution for swagger, where we:got this error:
+            // InvalidOperationException: No media types found in 'Microsoft.AspNet.OData.Formatter.ODataOutputFormatter.SupportedMediaTypes'. Add at least one media type to the list of supported media types.
+            // ...when hitting: https://localhost:44383/swagger/v1/swagger.json
+            services.AddMvcCore(options =>
+			{
+				foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+					outputFormatter.SupportedMediaTypes.Add(new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+				foreach (var inputFormatter in options.InputFormatters.OfType<ODataInputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+					inputFormatter.SupportedMediaTypes.Add(new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+			});
 
             services
                 .AddMvc(options =>
