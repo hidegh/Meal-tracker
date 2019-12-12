@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Custom excludes
 zzz_internal_notes.txt
+RMeals-server-dotNet/src/RMealsAPI/RMealsAPI.xml
