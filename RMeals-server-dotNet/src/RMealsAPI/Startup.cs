@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -13,9 +15,11 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.UriParser;
 using NetCore3.Persistence;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -113,9 +117,16 @@ namespace RMealsAPI
                    };
                });
 
+            // OData setup (we can use any of the camelCase variant)
+            services.TryAddSingleton(_ => new ODataConventionModelBuilder(_, true).EnableLowerCamelCase());
+            services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
+            services.AddOData();
+
             services
                 .AddMvc(options =>
                 {
+                    options.EnableEndpointRouting = false;
+
                     var policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .Build();
@@ -176,6 +187,12 @@ namespace RMealsAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.EnableDependencyInjection();
+                routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
             });
 
             // Nswag

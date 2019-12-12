@@ -635,6 +635,104 @@
 					"name": "Meals",
 					"item": [
 						{
+							"name": "OData",
+							"item": [
+								{
+									"name": "Get saul's all meals - top & meals count filter",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{netAppApi_token}}"
+											}
+										],
+										"url": {
+											"raw": "https://{{netAppApi_domain}}/Users/4/meals/?$count=true&$top=2&$filter=mealsCount ne 3",
+											"protocol": "https",
+											"host": [
+												"{{netAppApi_domain}}"
+											],
+											"path": [
+												"Users",
+												"4",
+												"meals",
+												""
+											],
+											"query": [
+												{
+													"key": "$count",
+													"value": "true"
+												},
+												{
+													"key": "$top",
+													"value": "2"
+												},
+												{
+													"key": "$filter",
+													"value": "mealsCount ne 3"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get saul's meals - time-filter",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{netAppApi_token}}"
+											}
+										],
+										"url": {
+											"raw": "https://{{netAppApi_domain}}/Users/4/meals/?$count=true&$filter=time(cast(day, 'Edm.DateTimeOffset')) lt 12:00:00.00000 #note: unfortunatelly we can't filter inner collection via odata",
+											"protocol": "https",
+											"host": [
+												"{{netAppApi_domain}}"
+											],
+											"path": [
+												"Users",
+												"4",
+												"meals",
+												""
+											],
+											"query": [
+												{
+													"key": "$count",
+													"value": "true"
+												},
+												{
+													"key": "$filter",
+													"value": "time(cast(day, 'Edm.DateTimeOffset')) lt 12:00:00.00000 "
+												}
+											],
+											"hash": "note: unfortunatelly we can't filter inner collection via odata"
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Get saul's all meals (or filtered)",
 							"request": {
 								"method": "GET",

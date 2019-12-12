@@ -12,6 +12,7 @@ using RMealsAPI.Persistence;
 using RMealsAPI.Code.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNet.OData;
 
 namespace RMealsAPI.Features.Meals
 {
@@ -151,6 +152,7 @@ namespace RMealsAPI.Features.Meals
         /// <returns></returns>
         [HttpGet]
         [Route("")]
+        [ODataQueryableAttribute]
         public async Task<ActionResult<IEnumerable<MealDailySummaryDto>>> GetMeals(
             long userId,
             [FromQuery] DateTime? dateFrom,
@@ -258,7 +260,7 @@ namespace RMealsAPI.Features.Meals
             // we could filter out those entries (but IMO it's nicer to have them there too
             // groupQuery = groupQuery.Where(i => i.DailyMeals.Count() > 0);
 
-            var result = groupQuery.ToList();
+            var result = groupQuery; // .ToList();
             return Ok(result);
         }
     }
