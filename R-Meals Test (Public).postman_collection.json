@@ -685,7 +685,7 @@
 									"response": []
 								},
 								{
-									"name": "Get saul's meals - time-filter",
+									"name": "Get saul's meals - time-filter on main collection",
 									"request": {
 										"method": "GET",
 										"header": [
@@ -724,6 +724,53 @@
 												}
 											],
 											"hash": "note: unfortunatelly we can't filter inner collection via odata"
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get saul's meals - time-filter on sub-collection via expand",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{netAppApi_token}}"
+											}
+										],
+										"url": {
+											"raw": "https://{{netAppApi_domain}}/Users/4/meals/?$count=true&$filter=day gt 2019-12-08&$expand=meals($filter=time(cast(date, 'Edm.DateTimeOffset')) gt 12:00:00.00000)",
+											"protocol": "https",
+											"host": [
+												"{{netAppApi_domain}}"
+											],
+											"path": [
+												"Users",
+												"4",
+												"meals",
+												""
+											],
+											"query": [
+												{
+													"key": "$count",
+													"value": "true"
+												},
+												{
+													"key": "$filter",
+													"value": "day gt 2019-12-08"
+												},
+												{
+													"key": "$expand",
+													"value": "meals($filter=time(cast(date, 'Edm.DateTimeOffset')) gt 12:00:00.00000)"
+												}
+											]
 										}
 									},
 									"response": []
