@@ -234,7 +234,7 @@ namespace RMealsAPI.Features.Meals
             // In memory grouping due EF core limitations
             var mealsDailySummary = mealsDailySummaryQuery.ToList();
             var meals = mealsTimeFilteredQuery.ToList();
-            
+
             var groupQuery =
                 from ms in mealsDailySummary
                 select new MealDailySummaryDto()
@@ -243,15 +243,15 @@ namespace RMealsAPI.Features.Meals
                     MealsCount = ms.MealsCount,
                     DailyCaloriesConsumed = ms.DailyCaloriesConsumed,
                     DailyCaloriesExceeded = ms.DailyCaloriesExceeded,
-                    Meals = 
-                        from m in meals 
+                    Meals =
+                        from m in meals
                         where m.Date.Date == ms.Day
-                        select new MealDailySummaryDto.MealDailyItemDto() 
+                        select new MealDailySummaryDto.MealDailyItemDto()
                         {
                             Id = m.Id,
                             Date = m.Date,
                             Calories = m.Calories,
-                            Description = m.Description 
+                            Description = m.Description
                         }
                 };
 
@@ -262,6 +262,42 @@ namespace RMealsAPI.Features.Meals
 
             var result = groupQuery; // .ToList();
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Gets a list of mails (with possible filtering).
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("advanced")]
+        [ODataQueryableAttribute]
+        public async Task<ActionResult<IEnumerable<MealDailySummaryDto>>> GetMealsAdvanced(
+            long userId)
+        {
+            var user = dbContext.Set<User>().Include(u => u.Profile).First(u => u.Id == userId);
+
+            var mealsDailySummaryQuery =
+                from u in dbContext.Set<User>()
+                from m in u.Meals
+                group m by m.Date.Date into g
+                select new MealDailySummaryDto()
+                {
+                    Day = g.Key,
+                    MealsCount = g.Count(),
+                    DailyCaloriesConsumed = g.Sum(m => m.Calories),
+                    DailyCaloriesExceeded = g.Sum(m => m.Calories) > user.Profile.AllowedCalories,
+                    Meals = g
+                        .Select(m => new MealDailySummaryDto.MealDailyItemDto()
+                        {
+                            Id = m.Id,
+                            Date = m.Date,
+                            Calories = m.Calories,
+                            Description = m.Description
+                        })
+                };
+
+            return Ok(mealsDailySummaryQuery);
         }
     }
 }
