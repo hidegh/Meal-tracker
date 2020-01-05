@@ -1,7 +1,12 @@
 # Meal-tracker
 .NET Core API and Angular UI for tracking daily calories (sample project)
 
-**This is a sample application for a .NET Core API & Angular UI (custom admin interface via Bootstrap).**
+**This is a sample application for a .NET Core API & Angular UI (custom admin interface via Bootstrap).** Used mainly for testing, to see when seamless transition from .NET Core 2.2, EF 6.x and OData (along with NSwag and API Versioning support) is possible to .NET Core 3.1.
+
+**Current breaking chages:**
+1. EF Core 3.1 still not able to work with some often used grouping expressions: https://github.com/aspnet/EntityFrameworkCore/issues/10012
+2. API versioning not addded yet
+3. NSwag still required additional formatters due OData (see Startup.cs)
 
 # The requirements
 1. **No 3rd party authentication** (all must be done via the API), user creation has to be supported by UI as well.
