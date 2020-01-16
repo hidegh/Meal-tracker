@@ -12,7 +12,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +27,7 @@ using Microsoft.OData.UriParser;
 using NetCore3.Persistence;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
 using RMealsAPI.Code.Identity;
 using RMealsAPI.Model;
@@ -118,6 +122,23 @@ namespace RMealsAPI
                    };
                });
 
+            // API versioning
+            services.AddApiVersioning(o =>
+            {
+                o.ApiVersionReader = new UrlSegmentApiVersionReader();
+                // NOTE: def. version won't wotk with url segments (at least not out of the box)
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.SubstituteApiVersionInUrl = true;
+            });
+
             // OData setup (we can use any of the camelCase variant)
             services.TryAddSingleton(_ => new ODataConventionModelBuilder(_, true).EnableLowerCamelCase());
             services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
@@ -149,37 +170,48 @@ namespace RMealsAPI
                 })
                 .AddFeatureFolders();
 
-            // NSwag
-            services
-                .AddOpenApiDocument(document => {
+            // NSwag (build an intermediate service provider & resolve IApiVersionDescriptionProvider)
+            var apiVersionDescriptionProvider = services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
 
-                    // Name, version...
-                    document.DocumentName = "v1";
+            // build a swagger endpoint for each discovered API version
+            foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+            {
+                var versionGroup = description.GroupName;
 
-                    // NOTE: remove this if no versioning is used
-                    // document.ApiGroupNames = new[] { "v1" };
+                services
+                    .AddOpenApiDocument(document =>
+                    {
+                        // Title, name, version...
+                        document.Title = "RMeals API";
 
-                    // Json serialization
-                    document.SerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+                        // DocumentName is used in the top-right corner of the UI, it's also part of the swagger route
+                        document.DocumentName = versionGroup;
 
-                    // Authentication https://github.com/RicoSuter/NSwag/issues/869
-                    document.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT token"));
-                    document.AddSecurity(
-                        "JWT token",
-                        Enumerable.Empty<string>(),
-                        new NSwag.OpenApiSecurityScheme()
-                        {
-                            Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
-                            Name = nameof(Authorization),
-                            In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-                            Description = "Copy this into  the value field: \nBearer {my long token}"
-                        });
-                })
-                ;
+                        // ApiGroupNames is used to filter versions (ApiVersionAttribute) that are includes in this swagger document - NOTE: use v1 for 1.0 v1.1 for 1.1 and so on...
+                        document.ApiGroupNames = new[] { versionGroup };
+
+                        // Json serialization
+                        document.SerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+
+                        // Authentication https://github.com/RicoSuter/NSwag/issues/869
+                        document.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT token"));
+                        document.AddSecurity(
+                            "JWT token",
+                            Enumerable.Empty<string>(),
+                            new NSwag.OpenApiSecurityScheme()
+                            {
+                                Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
+                                Name = nameof(Authorization),
+                                In = NSwag.OpenApiSecurityApiKeyLocation.Header,
+                                Description = "Copy this into  the value field: \nBearer {my long token}"
+                            });
+                    })
+                    ;
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, MealsDbContextInitializer mealsDbContextInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory, MealsDbContextInitializer mealsDbContextInitializer)
         {
             mealsDbContextInitializer.Seed();
 
@@ -212,7 +244,14 @@ namespace RMealsAPI
             // Nswag
             app
                 .UseOpenApi()
-                .UseSwaggerUi3();
+                .UseSwaggerUi3(options =>
+                {
+                    // build a swagger endpoint for each discovered API version
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerRoutes.Add(new SwaggerUi3Route($"{description.GroupName}", $"/swagger/{description.GroupName}/swagger.json"));
+                    }
+                });
         }
     }
 }

@@ -16,8 +16,14 @@ using Microsoft.AspNet.OData;
 
 namespace RMealsAPI.Features.Meals
 {
+    /// <summary>
+    /// NOTE: the omitting of the default version and such route is not out-of the box, not that route is added both to the v1 as v2 docs!
+    /// </summary>
     [ApiController]
     [Route("users/{userId}/[controller]")]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [Route("v{v:apiVersion}/users/{userId}/[controller]")]
     [AuthorizeSelfOrRole("userId", RoleConsts.Admin)]
     public class MealsController : ControllerBase
     {
