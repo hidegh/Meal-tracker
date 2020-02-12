@@ -296,7 +296,7 @@ namespace RMealsAPI.Features.Meals
                         .Select(m => new MealDailySummaryDto.MealDailyItemDto()
                         {
                             Id = m.Id,
-                            Date = m.Date,
+                            Date = m.Date.Date,
                             Calories = m.Calories,
                             Description = m.Description
                         })
