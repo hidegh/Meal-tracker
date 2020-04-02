@@ -73,7 +73,6 @@ namespace RMealsAPI.Code.Filters
             // return wrapped content
             var result = new ODataPagedResult<dynamic>(value, nextLink, count);
             responseContent.Value = result;
-
         }
     }
 
