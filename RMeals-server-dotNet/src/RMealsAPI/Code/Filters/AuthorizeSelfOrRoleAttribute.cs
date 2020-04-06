@@ -9,9 +9,9 @@ namespace RMealsAPI.Code.Filters
     /// <summary>
     /// Originally impl. as TypeFilter due DI, but later DB call was dropped...
     /// </summary>
-	public class AuthorizeSelfOrRole : TypeFilterAttribute
+	public class AuthorizeSelfOrRoleAttribute : TypeFilterAttribute
     {
-        public AuthorizeSelfOrRole(string routeUserIdParam, params string[] roles) : base(typeof(InjectFilterImpl))
+        public AuthorizeSelfOrRoleAttribute(string routeUserIdParam, params string[] roles) : base(typeof(InjectFilterImpl))
         {
             Arguments = new object[] { routeUserIdParam, roles };
         }

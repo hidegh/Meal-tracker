@@ -43,7 +43,7 @@ namespace RMealsAPI.Features.Meals
         /// <returns></returns>
         [HttpGet]
         [Route("{userId}/profile")]
-        [AuthorizeSelfOrRole("userId", RoleConsts.Admin, RoleConsts.Manager)]
+        [AuthorizeSelfOrRoleAttribute("userId", RoleConsts.Admin, RoleConsts.Manager)]
         public async Task<ActionResult<UserProfileDto>> GetProfile(int userId)
         {
             // NOTE: simple call, no need for separate query object
@@ -68,7 +68,7 @@ namespace RMealsAPI.Features.Meals
         /// <returns></returns>
         [HttpPut]
         [Route("{userId}/profile")]
-        [AuthorizeSelfOrRole("userId", RoleConsts.Admin, RoleConsts.Manager)]
+        [AuthorizeSelfOrRoleAttribute("userId", RoleConsts.Admin, RoleConsts.Manager)]
         public async Task<IActionResult> UpdateProfile(long userId, [FromBody] UserProfileDto userProfileDto)
         {
             if (!ModelState.IsValid)

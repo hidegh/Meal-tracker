@@ -5,14 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RMealsAPI.Code.Filters;
-using RMealsAPI.Features.Meals;
-using RMealsAPI.Features.Users;
 using RMealsAPI.Model;
 using RMealsAPI.Persistence;
 using RMealsAPI.Code.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Microsoft.AspNet.OData;
 
 namespace RMealsAPI.Features.Meals
 {
@@ -23,7 +20,7 @@ namespace RMealsAPI.Features.Meals
     [Route("users/{userId}/[controller]")]
     [ApiVersion("1.0")]
     [Route("v{v:apiVersion}/users/{userId}/[controller]")]
-    [AuthorizeSelfOrRole("userId", RoleConsts.Admin)]
+    [AuthorizeSelfOrRoleAttribute("userId", RoleConsts.Admin)]
     public class MealsController : ControllerBase
     {
         private ILogger<MealsController> logger;
