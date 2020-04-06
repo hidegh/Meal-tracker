@@ -29,6 +29,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
+using RMealsAPI.Code.Filters;
 using RMealsAPI.Code.Identity;
 using RMealsAPI.Model;
 
@@ -167,6 +168,8 @@ namespace RMealsAPI
                         .Build();
 
                     options.Filters.Add(new AuthorizeFilter(policy));
+
+                    options.Filters.Add(new QueryableExecutorFilter());
                 })
                 .AddFeatureFolders();
 
