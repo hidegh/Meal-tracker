@@ -173,6 +173,30 @@ namespace RMealsAPI.Features.Meals
                 TimeTo = timeTo
             };
 
+            var mealsDailySummaryQuery2 =
+    from u in dbContext.Set<User>()
+    from m in u.Meals
+    where (mealFilterOptionsDto.DateFrom == null || m.Date >= mealFilterOptionsDto.DateFrom) && (mealFilterOptionsDto.DateTo == null || m.Date < mealFilterOptionsDto.DateTo)
+    group m by m.Date into g
+    select new
+    {
+        Day = g.Key,
+        MealsCount = g.Count(),
+        DailyCaloriesConsumed = g.Sum(m => m.Calories),
+        DailyCaloriesExceeded = g.Sum(m => m.Calories) > user.Profile.AllowedCalories,
+        Meals = g
+            .Where(m => (mealFilterOptionsDto.TimeFrom == null || m.Date.TimeOfDay >= mealFilterOptionsDto.TimeFrom) && (mealFilterOptionsDto.TimeTo == null || m.Date.TimeOfDay < mealFilterOptionsDto.TimeTo))
+            .Select(m => new
+            {
+                m.Id,
+                m.Date,
+                m.Description,
+                m.Calories
+            })
+    };
+            var xxx = mealsDailySummaryQuery2.ToList();
+
+
             // NOTE:
             // separate query, fetching from DB just what we need
             // ...the join is needed as there's no meal.User association

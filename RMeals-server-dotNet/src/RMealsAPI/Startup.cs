@@ -3,9 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.OData.Formatter;
+using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OData.UriParser;
 using NetCore3.Persistence;
 using Newtonsoft.Json;
@@ -32,6 +33,7 @@ using NSwag.Generation.Processors.Security;
 using RMealsAPI.Code.Filters;
 using RMealsAPI.Code.Identity;
 using RMealsAPI.Model;
+using Microsoft.AspNetCore.OData.Formatter.Deserialization;
 
 namespace RMealsAPI
 {
@@ -141,9 +143,19 @@ namespace RMealsAPI
             });
 
             // OData setup (we can use any of the camelCase variant)
-            services.TryAddSingleton(_ => new ODataConventionModelBuilder(_, true).EnableLowerCamelCase());
+            services.TryAddSingleton(_ => new ODataConventionModelBuilder().EnableLowerCamelCase());
             services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
-            services.AddOData();
+            services.AddOData(opt =>
+            {
+                // see: https://github.com/OData/AspNetCoreOData/blob/4eaf62181555eb9f2088608568cb04c4087e1721/sample/ODataDynamicModel/Startup.cs
+                // ^ replacement for opt. EnableDependencyInjection
+
+                //amic EDM model builder
+                // https://github.com/OData/WebApi/issues/2059
+
+                // see: https://github.com/OData/AspNetCoreOData/blob/4eaf62181555eb9f2088608568cb04c4087e1721/src/Microsoft.AspNetCore.OData/ODataOptions.cs
+                opt.Select().Expand().Filter().OrderBy().Count().SetMaxTop(null).SkipToken();
+            });
 
             // Originally a workaround: https://github.com/OData/WebApi/issues/1177...
             //
@@ -238,11 +250,13 @@ namespace RMealsAPI
                 endpoints.MapControllers();
             });
 
+            /*
             app.UseMvc(routes =>
             {
                 routes.EnableDependencyInjection();
                 routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
             });
+            */
 
             // Nswag
             app
