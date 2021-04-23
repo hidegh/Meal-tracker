@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "29d10f33-7bdd-4668-b7ff-d33035146b22",
+		"_postman_id": "620b5dd3-4426-4159-a467-b3d0e6f2dac1",
 		"name": "R-Meals Test (Public)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,20 +17,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
-											"function jwt_decode(jwt) {",
-											"    var parts = jwt.split('.'); // header, payload, signature",
-											"    return JSON.parse(atob(parts[1]));",
-											"}",
+											"pm.test(\"parse out token\", function() {",
 											"",
-											"var data = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"    function jwt_decode(jwt) {",
+											"        var parts = jwt.split('.'); // header, payload, signature",
+											"        return JSON.parse(atob(parts[1]));",
+											"    }",
 											"",
-											"var decodedToken = jwt_decode(data.token);",
+											"    var data = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
 											"",
-											"console.log(decodedToken);",
-											""
+											"    var decodedToken = jwt_decode(data.token);",
+											"",
+											"    console.log(decodedToken);",
+											"    ",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -82,7 +84,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
 											"function jwt_decode(jwt) {",
 											"    var parts = jwt.split('.'); // header, payload, signature",
@@ -147,20 +148,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
-											"function jwt_decode(jwt) {",
-											"    var parts = jwt.split('.'); // header, payload, signature",
-											"    return JSON.parse(atob(parts[1]));",
-											"}",
+											"pm.test(\"parse out token\", function() {",
 											"",
-											"var data = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"    function jwt_decode(jwt) {",
+											"        var parts = jwt.split('.'); // header, payload, signature",
+											"        return JSON.parse(atob(parts[1]));",
+											"    }",
 											"",
-											"var decodedToken = jwt_decode(data.token);",
+											"    var data = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
 											"",
-											"console.log(decodedToken);",
-											""
+											"    var decodedToken = jwt_decode(data.token);",
+											"",
+											"    console.log(decodedToken);",
+											"    ",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -212,20 +215,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
-											"function jwt_decode(jwt) {",
-											"    var parts = jwt.split('.'); // header, payload, signature",
-											"    return JSON.parse(atob(parts[1]));",
-											"}",
+											"pm.test(\"parse out token\", function() {",
 											"",
-											"var data = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"    function jwt_decode(jwt) {",
+											"        var parts = jwt.split('.'); // header, payload, signature",
+											"        return JSON.parse(atob(parts[1]));",
+											"    }",
 											"",
-											"var decodedToken = jwt_decode(data.token);",
+											"    var data = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
 											"",
-											"console.log(decodedToken);",
-											""
+											"    var decodedToken = jwt_decode(data.token);",
+											"",
+											"    console.log(decodedToken);",
+											"    ",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -307,20 +312,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
-											"function jwt_decode(jwt) {",
-											"    var parts = jwt.split('.'); // header, payload, signature",
-											"    return JSON.parse(atob(parts[1]));",
-											"}",
+											"pm.test(\"parse out token\", function() {",
 											"",
-											"var data = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"    function jwt_decode(jwt) {",
+											"        var parts = jwt.split('.'); // header, payload, signature",
+											"        return JSON.parse(atob(parts[1]));",
+											"    }",
 											"",
-											"var decodedToken = jwt_decode(data.token);",
+											"    var data = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
 											"",
-											"console.log(decodedToken);",
-											""
+											"    var decodedToken = jwt_decode(data.token);",
+											"",
+											"    console.log(decodedToken);",
+											"    ",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -371,20 +378,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
-											"function jwt_decode(jwt) {",
-											"    var parts = jwt.split('.'); // header, payload, signature",
-											"    return JSON.parse(atob(parts[1]));",
-											"}",
+											"pm.test(\"parse out token\", function() {",
 											"",
-											"var data = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
+											"    function jwt_decode(jwt) {",
+											"        var parts = jwt.split('.'); // header, payload, signature",
+											"        return JSON.parse(atob(parts[1]));",
+											"    }",
 											"",
-											"var decodedToken = jwt_decode(data.token);",
+											"    var data = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable(\"netAppApi_token\", data.token);",
 											"",
-											"console.log(decodedToken);",
-											""
+											"    var decodedToken = jwt_decode(data.token);",
+											"",
+											"    console.log(decodedToken);",
+											"    ",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -430,9 +439,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Users",
@@ -627,9 +634,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Meals",
@@ -808,9 +813,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Get saul's all meals (or filtered)",
@@ -830,7 +833,7 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{netAppApi_domain}}/Users/4/meals?dateFrom=2019-11-01&dateTo&timeFrom&timeTo=11:00:00",
+									"raw": "https://{{netAppApi_domain}}/Users/4/meals?dateFrom=2019-11-01&dateTo=&timeFrom=&timeTo=11:00:00",
 									"protocol": "https",
 									"host": [
 										"{{netAppApi_domain}}"
@@ -868,7 +871,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8301733b-6c7d-4dd5-8d84-0f49ab39776b",
 										"exec": [
 											"if (pm.response.code === 201) {",
 											"    var id = parseInt(pm.response.text());",
@@ -1047,9 +1049,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Temp",
@@ -1060,7 +1060,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
 											""
 										],
@@ -1133,7 +1132,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
 											"function jwt_decode(jwt) {",
 											"    var parts = jwt.split('.'); // header, payload, signature",
@@ -1189,7 +1187,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f98a46d-00fa-4c94-a83b-a6690f045642",
 										"exec": [
 											"function jwt_decode(jwt) {",
 											"    var parts = jwt.split('.'); // header, payload, signature",
@@ -1239,13 +1236,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
