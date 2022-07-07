@@ -48,7 +48,7 @@
     "file-saver": "^2.0.2",
     "jquery": "^3.5.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "momentjs": "^2.0.0",
     "ngx-material-timepicker": "^5.2.2",
     "popper.js": "^1.15.0",
