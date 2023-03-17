@@ -3,12 +3,11 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Formatter;
+using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +31,10 @@ using NSwag.Generation.Processors.Security;
 using RMealsAPI.Code.Filters;
 using RMealsAPI.Code.Identity;
 using RMealsAPI.Model;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 namespace RMealsAPI
 {
@@ -57,6 +60,7 @@ namespace RMealsAPI
             var migrationAssembly = typeof(MealsDbContext).GetTypeInfo().Assembly.GetName().Name;
             services.AddDbContext<MealsDbContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly)));
                 
+
             services
                 .AddIdentityCore<User>(options =>
                 {
@@ -140,17 +144,18 @@ namespace RMealsAPI
                 options.SubstituteApiVersionInUrl = true;
             });
 
-            // OData setup (we can use any of the camelCase variant)
-            services.TryAddSingleton(_ => new ODataConventionModelBuilder(_, true).EnableLowerCamelCase());
-            services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
-            services.AddOData();
+			// OData setup (we can use any of the camelCase variant)
+			services.AddSingleton<DefaultAssemblyResolver>();
 
-            // Originally a workaround: https://github.com/OData/WebApi/issues/1177...
-            //
-            // ...but from .NET Core 3.x it's a solution for swagger, where we:got this error:
-            // InvalidOperationException: No media types found in 'Microsoft.AspNet.OData.Formatter.ODataOutputFormatter.SupportedMediaTypes'. Add at least one media type to the list of supported media types.
-            // ...when hitting: https://localhost:44383/swagger/v1/swagger.json
-            services.AddMvcCore(options =>
+			services.TryAddSingleton(_ => new ODataConventionModelBuilder(/*_, true */).EnableLowerCamelCase());
+            services.TryAddSingleton(_ => new ODataUriResolver() { EnableCaseInsensitive = true });
+
+			// Originally a workaround: https://github.com/OData/WebApi/issues/1177...
+			//
+			// ...but from .NET Core 3.x it's a solution for swagger, where we:got this error:
+			// InvalidOperationException: No media types found in 'Microsoft.AspNet.OData.Formatter.ODataOutputFormatter.SupportedMediaTypes'. Add at least one media type to the list of supported media types.
+			// ...when hitting: https://localhost:44383/swagger/v1/swagger.json
+			services.AddMvcCore(options =>
 			{
 				foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
 					outputFormatter.SupportedMediaTypes.Add(new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
@@ -171,10 +176,15 @@ namespace RMealsAPI
 
                     options.Filters.Add(new QueryableExecutorFilter());
                 })
-                .AddFeatureFolders();
+                .AddFeatureFolders()
+                .AddOData(option => {                    
+					option.Select().Filter().Count().OrderBy().Expand();
+				    // what about enabling dep. injection?
+                    // what about enabling lower case
+			    });
 
-            // NSwag (build an intermediate service provider & resolve IApiVersionDescriptionProvider)
-            var apiVersionDescriptionProvider = services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
+			// NSwag (build an intermediate service provider & resolve IApiVersionDescriptionProvider)
+			var apiVersionDescriptionProvider = services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
 
             // build a swagger endpoint for each discovered API version
             foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
@@ -240,8 +250,10 @@ namespace RMealsAPI
 
             app.UseMvc(routes =>
             {
+                /*
                 routes.EnableDependencyInjection();
                 routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
+                */
             });
 
             // Nswag
